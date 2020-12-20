@@ -10,8 +10,8 @@ public class Example {
 		// TODO: comment out to test the example
 
 //		NavigableList list = new NavigableList();
-//		list.addLast("Pinguine");
-//		list.addLast("sind");
+//		list.addFirst("Pinguine");
+//		list.addFirst("sind");
 //		list.addLast("exzellente");
 //		list.addLast("Tiere");
 //		list.addLast("die");
@@ -26,7 +26,7 @@ public class Example {
 //
 //		System.out.println(list);
 	}
-
+//
 //	static void sort(NavigableList l) {
 //		if (l.isEmpty())
 //			return;
