@@ -1,15 +1,18 @@
 package pgdp.lists;
 
 public class NavigableList {
+    //Attributes
     public ListElement first;
     public ListElement last;
     public int size = 0;
 
+    //Constructor to initiate a empty list
     public NavigableList() {
         first = null;
         last = null;
     }
 
+    //Method to see if list is empty
     public boolean isEmpty(){
         if (first == null && last == null){
             return true;
@@ -17,6 +20,7 @@ public class NavigableList {
         return false;
     }
 
+    //Method the returns the size
     public int size(){
         if (isEmpty()){
             return 0;
@@ -25,6 +29,7 @@ public class NavigableList {
         }
     }
 
+    //Method to add a specific string at the begin of the list
     public boolean addFirst(String addFirst){
         if (addFirst != null){
             ListElement firstElement = new ListElement(addFirst);
@@ -33,6 +38,7 @@ public class NavigableList {
                 last = firstElement;
             }else{
                 first.setPrev(firstElement);
+                firstElement.setNext(first);
                 first = firstElement;
             }
             size++;
@@ -41,6 +47,7 @@ public class NavigableList {
         return false;
     }
 
+    //Method to add a specific string at the end of the list
     public boolean addLast(String addLast){
         if (addLast != null){
             ListElement lastElement = new ListElement(addLast);
@@ -49,6 +56,7 @@ public class NavigableList {
                 last = lastElement;
             }else{
                 last.setNext(lastElement);
+                lastElement.setPrev(last);
                 last = lastElement;
             }
             size++;
@@ -57,6 +65,7 @@ public class NavigableList {
         return false;
     }
 
+    //Get a the message in a specific index
     public String get(int index){
         ListElement element;
         if (index < 0 || index >= size){
@@ -76,26 +85,31 @@ public class NavigableList {
         }
     }
 
+    //Removes a specific string from the list
     public boolean remove (String remove){
-        ListElement element;
+        ListElement element = first;
         if (first.getInfo() == remove){
             first = first.getNext();
             return true;
-        }else if (last.getInfo() == remove){
-            last = last.getPrev();
-            return true;
-        }else{
-            for (int i = 1; i < size; i++) {
-                element = first.getNext();
+        }else if (last.getInfo() != remove){
+            for (int i = 0; i < size; i++) {
                 if (element.getInfo() == remove){
-                    element = element.getNext();
+                    element.getPrev().setNext(element.getNext());
+                    element.getNext().setPrev(element.getPrev());
                     return true;
                 }
+                element = element.getNext();
             }
+        }
+        else if (last.getInfo() == remove){
+            last.getPrev().setNext(null);
+            last = last.getPrev();
+            return true;
         }
         return false;
     }
 
+    //To string method
     public String toString(){
         StringBuilder sb = new StringBuilder();
         if (first == null && last == null){
@@ -113,6 +127,8 @@ public class NavigableList {
         String message = sb.toString();
         return message;
     }
+
+    //Creates a cursor in a specific index
     public Cursor createCursorAt(int index){
         if (index > size || index < 0){
             return null;

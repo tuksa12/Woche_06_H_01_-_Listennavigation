@@ -1,10 +1,12 @@
 package pgdp.lists;
 
 public class ListElement {
+    //Attributes
     private String info;
     private ListElement prev;
     private ListElement next;
 
+    //Setters
     public void setInfo(String info) {
         this.info = info;
     }
@@ -17,6 +19,7 @@ public class ListElement {
         this.next = next;
     }
 
+    //Getters
     public String getInfo() {
         return info;
     }
@@ -29,6 +32,7 @@ public class ListElement {
         return next;
     }
 
+    //Constructors
     public ListElement(String info, ListElement prev, ListElement next) {
         this.info = info;
         this.next = next;
@@ -41,12 +45,11 @@ public class ListElement {
         prev = null;
     }
 
-    public boolean isDeleted(){
-        if (prev == null || prev.next == next.prev  ){
-            return false;
-        }if (next == null || prev.next == next.prev  ){
-            return false;
+    //Method isDeleted
+    public boolean isDeleted(){//I tried implementing this method but didn't work
+        if (prev == null || next == null && this.info == "dElEtEd"){
+            return true;
         }
-        return true;
+        return false;
     }
 }
